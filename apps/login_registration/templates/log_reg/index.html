@@ -1,0 +1,68 @@
+<html>
+<head>
+  <title>Login_Registration</title>  
+</head>
+<body>
+    {% if messages %}
+    <ul>
+      {% for message in messages %}
+        <li style="color: red">{{ message }}</li>
+      {% endfor %}
+    </ul>
+    {% endif %}
+    <div id="register">
+      <h2>Registration</h2> 
+      <form  action="/register" method="POST" id='register_form'>
+        {% csrf_token %}
+        <input type="hidden" name="type" value="register">
+        <table>
+          <tr>
+            <td><label for="first_name">First Name:</label></td>
+            <td><input type="text" id="first_name" name="first_name"></td>
+          </tr>
+          <tr>
+            <td><label for="last_name">Last Name:</label></td>
+            <td><input type="text" id="last_name" name="last_name"></td>
+          </tr>
+          <tr>
+            <td><label for="email">Email:</label></td>
+            <td><input type="text" id="email" name="email"></td>
+          </tr>
+          <tr>
+            <td><label for="password">Password</label></td>
+            <td><input type="password" id="password" name="password"></td>
+          </tr>
+          <tr>
+            <td><label for="conf_password">Repeat your password:</label></td>
+            <td><input type="password" id="conf_password" name="conf_password"></td>
+          </tr>
+          <tr>
+            <td><input type="submit" value="Register"></td>
+          </tr> 
+        </table>
+        </div>
+      </form>
+  </div>
+    <div id="login">
+      <h2>Login</h2>
+      <form action='/login' method='POST' id='login_form'>
+        {% csrf_token %}
+        <input type="hidden" name="type" value="login">
+        <table>
+          <tr>
+            <td><label for="email">Email:</label></td>
+            <td><input type="text" name="email" id="email"></td>
+          </tr>
+          <tr>
+            <td><label for="password">Password:</label></td>
+            <td><input type="password" name="password" id="password"></td>
+          </tr>
+          <tr>
+            <td><input type="submit" value="Login"></td>
+          </tr>
+        </table>
+      </form>
+    </div>
+</body>
+</html>
+
