@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>The Wall</title>
+</head>
+<body>
+    
+
+
+
+    {% if messages %} 
+        {% for msg in messages %}
+            <p style='color:green'>{{ msg }}</p>
+        {% endfor %}
+    {% endif %}
+    <a href="/logout">Logout</a>
+    <h2>Post a message</h2>
+    <form action="/post_message" method="POST">
+        {% csrf_token %}
+        <textarea name="message" id="message" cols="50" rows="8"></textarea><br>
+        <input type="submit" value="Post a message" style='background: blue; color: white; padding: 10px;'>
+    </form>
+    {% if all_messages %} 
+        {% for msg in all_messages %}
+            <div>
+                <p style="font-size: 16px; font-style: italic">{{ msg.author.first_name }} - {{ msg.created_at }}</p>
+                <p style="font-size: 14px; padding-left: 20px;">{{ msg.message }}</p>
+            </div>
+            <div>
+                {% if all_comments %} 
+                    {% for cmt in all_comments %}
+                        {% if cmt.message_id == msg.id %} 
+                            <p>{{ cmt.owner.first_name}} - {{ cmt.created_at }}</p>
+                            <p>{{ cmt.comment}}</p>
+                        {% endif %}
+                    {% endfor %}
+                {% endif %}
+                <h3>Post a comment</h3>
+                <form action="/post_comment" method="POST">
+                    {% csrf_token %}
+                    <textarea name="comment" id="comment" cols="40" rows="5"></textarea><br>
+                    <input type="hidden" name="msg_cmt" value="{{msg.id}}">
+                    <input type="submit" value="Post a comment" style='background: green; color: white; padding: 10px;'>
+                </form>
+            </div>
+        {% endfor %}
+    {% endif %}
+
+</body>
+</html>

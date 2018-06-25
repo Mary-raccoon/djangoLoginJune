@@ -9,10 +9,10 @@
 <body>
     {% if messages %}
         {% for message in messages %}
-          <p>{{ message }}</p>
+          <p style="color:green">{{ message }}</p>
         {% endfor %}
       {% endif %}
     <h1>Success! Welcome, {{request.session.first_name}}</h1>
-    
+    <a href="/logout">Logout</a>
 </body>
 </html>
